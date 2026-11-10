@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-
   <style>
     body {
       margin: 0;
@@ -13,7 +12,6 @@
       background: #101827;
       color: white;
     }
-
     header {
       padding: 20px;
       background: #172338;
@@ -21,18 +19,13 @@
       justify-content: space-between;
       align-items: center;
     }
-
-    main {
-      padding: 25px;
-    }
-
+    main { padding: 25px; }
     .card {
       background: #1e2d43;
       padding: 20px;
       border-radius: 12px;
       margin-top: 20px;
     }
-
     button {
       background: #dc3545;
       color: white;
@@ -43,7 +36,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <header>
@@ -53,9 +45,8 @@
 
   <main>
     <h2>Selamat Datang!</h2>
-
     <div class="card">
-      <p>Status akun:</p>
+      <p>Email pengguna:</p>
       <h3 id="userEmail">Memeriksa akun...</h3>
       <p id="status">Memuat dashboard...</p>
     </div>
@@ -71,19 +62,21 @@
 
     const userEmail = document.getElementById("userEmail");
     const status = document.getElementById("status");
+    const logout = document.getElementById("logout");
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         userEmail.textContent = user.email;
-        status.textContent = "Login berhasil! Mengalihkan...";
-window.location.href = "./dashboard.html";
+        status.textContent = "Akun berhasil terhubung!";
+      } else {
+        window.location.replace("./login.html");
       }
     });
 
-    document.getElementById("logout").onclick = async () => {
+    logout.onclick = async () => {
       try {
         await signOut(auth);
-        window.location.href = "./login.html";
+        window.location.replace("./login.html");
       } catch (error) {
         status.textContent = error.message;
       }
