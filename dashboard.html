@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      background: #172338;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    main {
+      padding: 25px;
+    }
+
+    .card {
+      background: #1e2d43;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: #dc3545;
+      color: white;
+      border: 0;
+      padding: 10px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <strong>My Dashboard</strong>
+    <button id="logout">Logout</button>
+  </header>
+
+  <main>
+    <h2>Selamat Datang!</h2>
+
+    <div class="card">
+      <p>Status akun:</p>
+      <h3 id="userEmail">Memeriksa akun...</h3>
+      <p id="status">Memuat dashboard...</p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { auth } from "./js/firebase.js";
+
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+    const userEmail = document.getElementById("userEmail");
+    const status = document.getElementById("status");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userEmail.textContent = user.email;
+        status.textContent = "Login aktif. Dashboard siap digunakan.";
+      } else {
+        window.location.href = "./login.html";
+      }
+    });
+
+    document.getElementById("logout").onclick = async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "./login.html";
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    };
+  </script>
+
+</body>
+</html>
