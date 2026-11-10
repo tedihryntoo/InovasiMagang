@@ -44,21 +44,17 @@
       }
     };
 
-    document.getElementById("login").onclick = async () => {
+     document.getElementById("login").onclick = async () => {
   try {
     status.textContent = "Sedang login...";
 
-    const result = await signInWithEmailAndPassword(
+    await signInWithEmailAndPassword(
       auth,
       email.value,
       password.value
     );
 
-    status.textContent = "Login berhasil!";
-
-    window.location.assign(
-      new URL("dashboard.html", window.location.href).href
-    );
+    window.location.replace("./dashboard.html");
 
   } catch (error) {
     status.textContent = error.message;
