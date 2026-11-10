@@ -45,15 +45,25 @@
     };
 
     document.getElementById("login").onclick = async () => {
-      try {
-        await signInWithEmailAndPassword(
-          auth, email.value, password.value
-        );
-        status.textContent = "Login berhasil!";
-      } catch (error) {
-        status.textContent = error.message;
-      }
-    };
+  try {
+    status.textContent = "Sedang login...";
+
+    const result = await signInWithEmailAndPassword(
+      auth,
+      email.value,
+      password.value
+    );
+
+    status.textContent = "Login berhasil!";
+
+    window.location.assign(
+      new URL("dashboard.html", window.location.href).href
+    );
+
+  } catch (error) {
+    status.textContent = error.message;
+  }
+};
   </script>
 
 </body>
