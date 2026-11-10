@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Web App</title>
+</head>
+<body>
+
+  <h1>Firebase Web App</h1>
+
+  <p id="status">Memeriksa koneksi Firebase...</p>
+
+  <a href="login.html">Masuk / Registrasi</a>
+
+  <script type="module">
+    import { auth, db } from "./js/firebase.js";
+
+    document.getElementById("status").textContent =
+      "Firebase berhasil diinisialisasi!";
+
+    console.log("Firebase Auth:", auth);
+    console.log("Firebase Database:", db);
+  </script>
+
+</body>
+</html>
