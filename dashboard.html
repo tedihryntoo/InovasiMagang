@@ -75,9 +75,8 @@
     onAuthStateChanged(auth, (user) => {
       if (user) {
         userEmail.textContent = user.email;
-        status.textContent = "Login aktif. Dashboard siap digunakan.";
-      } else {
-        window.location.href = "./login.html";
+        status.textContent = "Login berhasil! Mengalihkan...";
+window.location.href = "./dashboard.html";
       }
     });
 
