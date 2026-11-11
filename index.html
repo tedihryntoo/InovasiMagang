@@ -1,27 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Web App</title>
+  <title>Inovasi Magang - Firebase & ESP32 App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .hero {
+      text-align: center;
+      max-width: 600px;
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    h1 { font-size: 2.2rem; margin-bottom: 12px; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    p { color: #94a3b8; font-size: 1rem; margin-bottom: 24px; line-height: 1.5; }
+    .status-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Firebase Web App</h1>
+  <div class="hero">
+    <h1>Inovasi Magang</h1>
+    <p>Sistem monitoring & kendali berbasis IoT (ESP32) dan Firebase Web App.</p>
+    
+    <div>
+      <span id="status" class="status-badge">Memeriksa koneksi Firebase...</span>
+    </div>
 
-  <p id="status">Memeriksa koneksi Firebase...</p>
-
-  <a href="login.html">Masuk / Registrasi</a>
+    <div class="btn-group">
+      <a href="login.html" class="btn btn-primary">Masuk / Akun</a>
+      <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+    </div>
+  </div>
 
   <script type="module">
     import { auth, db } from "./js/firebase.js";
+    const statusEl = document.getElementById("status");
 
-    document.getElementById("status").textContent =
-      "Firebase berhasil diinisialisasi!";
-
-    console.log("Firebase Auth:", auth);
-    console.log("Firebase Database:", db);
+    try {
+      if (auth && db) {
+        statusEl.textContent = "✓ Firebase Berhasil Terhubung";
+        statusEl.style.background = "rgba(16, 185, 129, 0.15)";
+        statusEl.style.color = "#34d399";
+        statusEl.style.borderColor = "rgba(52, 211, 153, 0.3)";
+      }
+    } catch (e) {
+      statusEl.textContent = "⚠ Gagal terhubung ke Firebase";
+      statusEl.style.background = "rgba(239, 68, 68, 0.15)";
+      statusEl.style.color = "#f87171";
+      statusEl.style.borderColor = "rgba(248, 113, 113, 0.3)";
+    }
   </script>
 
 </body>
